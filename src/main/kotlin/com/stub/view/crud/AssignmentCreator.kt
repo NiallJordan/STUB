@@ -3,9 +3,9 @@ package com.stub.view.crud
 import com.stub.model.AssignModel
 import tornadofx.*
 
-class AssignmentEditor:View("Assignment Editor"){
+
+class AssignmentCreator: View("Assignment Creator"){
     val assignment : AssignModel by inject()
-    override val savable = assignment.dirty
     override val headingProperty = assignment.title
 
     override val root = form {
@@ -33,11 +33,9 @@ class AssignmentEditor:View("Assignment Editor"){
         }
     }
 
-    override fun onSave() {
+    override fun onCreate() {
         // Flush changes from the text fields into the model
         assignment.commit()
-        //Persistence to go here
-        println("Saving ${assignment.item.title}")
     }
 
     override fun onRefresh() {

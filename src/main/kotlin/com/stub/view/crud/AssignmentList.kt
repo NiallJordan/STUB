@@ -1,8 +1,7 @@
-package com.stub.view
+package com.stub.view.crud
 
 import com.stub.model.AssignModel
 import com.stub.model.Assignment
-import javafx.scene.Parent
 import tornadofx.*
 
 class AssignmentList : View("My View") {
@@ -18,5 +17,9 @@ class AssignmentList : View("My View") {
         column("Submission Link", Assignment::subLinkProperty)
         column("Submission Date", Assignment::subDateProperty)
         bindSelected(model)
+        onUserSelect {
+            workspace.dock<AssignmentEditor>()
+        }
     }
 }
+
