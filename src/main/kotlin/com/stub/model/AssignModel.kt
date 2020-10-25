@@ -5,7 +5,8 @@ import tornadofx.Commit
 import tornadofx.ItemViewModel
 
 
-class AssignModel(assignment: Assignment) : ItemViewModel<Assignment>(assignment) {
+class AssignModel: ItemViewModel<Assignment>() {
+
     val module = bind(Assignment::moduleProperty)
     val title = bind(Assignment::titleProperty)
     val description = bind(Assignment::descriptionProperty)
