@@ -1,5 +1,6 @@
 package com.stub.view.crud
 
+import com.stub.controller.AssignmentController
 import com.stub.model.AssignModel
 import tornadofx.*
 
@@ -7,6 +8,7 @@ class AssignmentEditor:View("Assignment Editor"){
     val assignment : AssignModel by inject()
     override val savable = assignment.dirty
     override val headingProperty = assignment.title
+    val assignmentController: AssignmentController by inject()
 
     override val root = form {
         fieldset {
@@ -40,7 +42,12 @@ class AssignmentEditor:View("Assignment Editor"){
         println("Saving ${assignment.item.title}")
     }
 
-    override fun onRefresh() {
-        assignment.rollback()
-    }
+//    override val onRefresh() {
+//        runAsync {
+//            assignmentController.getCustomer(customer.id.value)
+//        } ui {
+//            customer.item = it
+//            root.onRefresh()
+//        }
+//    }
 }

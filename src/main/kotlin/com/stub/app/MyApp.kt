@@ -8,8 +8,6 @@ import tornadofx.App
 import tornadofx.UIComponent
 
 class MyApp: App(STUBWorkspace::class, Styles::class){
-    private val logger = KotlinLogging.logger {}
-
     override fun onBeforeShow(view: UIComponent) {
         workspace.dock<MyView>()
     }
@@ -20,7 +18,6 @@ class MyApp: App(STUBWorkspace::class, Styles::class){
             height = 600.0
         }
         super.start(stage)
-        logger.info{"Launching STUB"}
     }
 
 }

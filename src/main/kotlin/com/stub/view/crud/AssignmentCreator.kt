@@ -1,11 +1,14 @@
 package com.stub.view.crud
 
+import com.stub.controller.AssignmentController
 import com.stub.model.AssignModel
 import tornadofx.*
 
 
 class AssignmentCreator: View("Assignment Creator"){
     val assignment : AssignModel by inject()
+    val assignmentController : AssignmentController by inject()
+
     override val headingProperty = assignment.title
 
     override val root = form {
@@ -35,10 +38,6 @@ class AssignmentCreator: View("Assignment Creator"){
 
     override fun onCreate() {
         // Flush changes from the text fields into the model
-        assignment.commit()
-    }
-
-    override fun onRefresh() {
-        assignment.rollback()
+        //assignmentController.createAssignment(module,title)
     }
 }
