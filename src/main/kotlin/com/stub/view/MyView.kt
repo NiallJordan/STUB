@@ -1,14 +1,10 @@
 package com.stub.view
 
-import com.stub.view.crud.AddDataFragment
-import com.stub.view.crud.ReadFragment
+import com.stub.view.crud.AssignmentEditor
 import tornadofx.*
 
-class MyView : View("My View") {
-    override val root = pane {
-         tabpane{
-            tab<AddDataFragment>()
-            tab<ReadFragment>()
-        }
+class MyView : View("STUB") {
+    override val root = tabpane {
+            tab<AssignmentEditor>()
     }
 }
