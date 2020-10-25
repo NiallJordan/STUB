@@ -2,6 +2,8 @@ package com.stub.view.crud
 
 import com.stub.controller.AssignmentController
 import com.stub.model.AssignModel
+import com.stub.model.Assignment
+import com.stub.view.MyView
 import tornadofx.*
 
 
@@ -36,8 +38,11 @@ class AssignmentCreator: View("Assignment Creator"){
         }
     }
 
+
     override fun onCreate() {
         // Flush changes from the text fields into the model
-        //assignmentController.createAssignment(module,title)
+        val assignment = Assignment(assignment.module.value,assignment.title.value,assignment.description.value,assignment.weight.value,assignment.subLink.value,assignment.subDate.value)
+        assignmentController.createNewAssignment(assignment)
+        workspace.dock<MyView>()
     }
 }

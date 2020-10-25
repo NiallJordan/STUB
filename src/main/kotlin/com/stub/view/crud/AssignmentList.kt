@@ -1,14 +1,16 @@
 package com.stub.view.crud
 
+import com.stub.controller.AssignmentController
 import com.stub.model.AssignModel
 import com.stub.model.Assignment
 import tornadofx.*
 
 class AssignmentList : View("My View") {
-    val assignments = listOf(Assignment("Mobile App","Kotlin","Assignment 1 for mobile app",30,"https://moodle.wit.ie/mod/assign/view.php?id=3318657","2020-11-06")).asObservable()
     val model : AssignModel by inject()
+    val assignmentController: AssignmentController by inject()
 
-    override val root = tableview(assignments) {
+    override val root = tableview<Assignment> {
+        items = assignmentController.assignments
         title = "Assignment"
         column("Module", Assignment::moduleProperty)
         column("Title", Assignment::titleProperty)
@@ -20,6 +22,7 @@ class AssignmentList : View("My View") {
         onUserSelect {
             workspace.dock<AssignmentEditor>()
         }
+        smartResize()
     }
 }
 
