@@ -17,4 +17,21 @@ class AssignmentDao {
         ps.close()
         return println("$count row inserted")
     }
+
+    fun readAssignments() : List<Assignment> {
+        val conn = Database().conn
+        val rs = conn.createStatement().executeQuery("SELECT * FROM STUB WHERE module IS NOT NULL")
+        val assignmentList = ArrayList<Assignment>()
+        while (rs.next()) {
+            val mod = rs.getString("module")
+            val title = rs.getString("title")
+            val desc = rs.getString("description")
+            val weight = rs.getInt("weight")
+            val subLink = rs.getString("subLink")
+            val date = rs.getString("subDate")
+            assignmentList += Assignment(mod, title, desc, weight, subLink, date)
+        }
+        rs.close()
+        return assignmentList
+    }
 }

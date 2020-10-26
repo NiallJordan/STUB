@@ -6,10 +6,12 @@ import com.stub.util.AssignmentDao
 import javafx.collections.FXCollections
 import mu.KotlinLogging
 import tornadofx.Controller
+import tornadofx.SortedFilteredList
 import tornadofx.asObservable
+import tornadofx.observable
 
 class AssignmentController: Controller() {
-    val assignments = FXCollections.observableArrayList<Assignment>(Assignment("Mobile App","Kotlin","Assignment 1 for mobile app",30,"https://moodle.wit.ie/mod/assign/view.php?id=3318657","2020-11-06"))
+    val assignments = SortedFilteredList(items = getAllAssignments().asObservable())
     private val logger = KotlinLogging.logger {}
     val model : AssignModel by inject()
 
@@ -18,12 +20,10 @@ class AssignmentController: Controller() {
     }
 
     fun createNewAssignment(assignment: Assignment){
-        assignments.add(assignment)
         val dao = AssignmentDao()
         dao.addAssignment(assignment)
+        assignments += assignment
     }
 
-    fun getAllAssignments(): List<Assignment> {
-
-    }
+    fun getAllAssignments(): List<Assignment> = AssignmentDao().readAssignments()
 }
