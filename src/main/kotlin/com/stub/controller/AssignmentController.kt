@@ -2,6 +2,7 @@ package com.stub.controller
 
 import com.stub.model.AssignModel
 import com.stub.model.Assignment
+import com.stub.util.AssignmentDao
 import javafx.collections.FXCollections
 import mu.KotlinLogging
 import tornadofx.Controller
@@ -18,5 +19,11 @@ class AssignmentController: Controller() {
 
     fun createNewAssignment(assignment: Assignment){
         assignments.add(assignment)
+        val dao = AssignmentDao()
+        dao.addAssignment(assignment)
+    }
+
+    fun getAllAssignments(): List<Assignment> {
+
     }
 }

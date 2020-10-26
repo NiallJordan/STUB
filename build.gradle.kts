@@ -22,6 +22,7 @@ dependencies {
     implementation("no.tornado:tornadofx:$tornadofx_version")
     implementation("org.slf4j:slf4j-simple:1.6.1")
     implementation("io.github.microutils:kotlin-logging:1.6.22")
+    implementation("mysql","mysql-connector-java","8.0.21")
     testImplementation(kotlin("test-junit"))
 }
 
