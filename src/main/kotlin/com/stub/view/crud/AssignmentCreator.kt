@@ -38,9 +38,7 @@ class AssignmentCreator: View("Assignment Creator"){
         }
     }
 
-
     override fun onCreate() {
-        // Flush changes from the text fields into the model
         val assignment = Assignment(assignment.module.value,assignment.title.value,assignment.description.value,assignment.weight.value,assignment.subLink.value,assignment.subDate.value)
         assignmentController.createNewAssignment(assignment)
         workspace.dock<MyView>()

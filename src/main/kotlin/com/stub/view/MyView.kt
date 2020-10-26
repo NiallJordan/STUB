@@ -13,9 +13,6 @@ class MyView : View("STUB") {
         workspace.dock<AssignmentCreator>()
     }
 
-    override fun onDelete() {
-
-    }
 }
 
 

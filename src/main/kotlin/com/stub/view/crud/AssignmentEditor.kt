@@ -2,6 +2,8 @@ package com.stub.view.crud
 
 import com.stub.controller.AssignmentController
 import com.stub.model.AssignModel
+import com.stub.model.Assignment
+import com.stub.view.MyView
 import tornadofx.*
 
 class AssignmentEditor:View("Assignment Editor"){
@@ -39,15 +41,13 @@ class AssignmentEditor:View("Assignment Editor"){
         // Flush changes from the text fields into the model
         assignment.commit()
         //Persistence to go here
-        println("Saving ${assignment.item.title}")
+        //println("Saving ${assignment.item.title}")
+
     }
 
-//    override val onRefresh() {
-//        runAsync {
-//            assignmentController.getCustomer(customer.id.value)
-//        } ui {
-//            customer.item = it
-//            root.onRefresh()
-//        }
-//    }
+    override fun onDelete() {
+        val assignment = Assignment(assignment.module.value,assignment.title.value,assignment.description.value,assignment.weight.value,assignment.subLink.value,assignment.subDate.value)
+        assignmentController.deleteAssignment(assignment)
+    }
+
 }
