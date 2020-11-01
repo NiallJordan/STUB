@@ -24,7 +24,6 @@ class AssignModel: ItemViewModel<Assignment>() {
         commits.findChanged(weight)?.let { println("Weight changed from ${it.second} to ${it.first}")}
         commits.findChanged(subLink)?.let { println("SubLink changed from ${it.second} to ${it.first}")}
         commits.findChanged(subDate)?.let { println("SubDate changed from ${it.second} to ${it.first}")}
-
     }
 
     private fun <T> List<Commit>.findChanged(ref: Property<T>): Pair<T, T>? {

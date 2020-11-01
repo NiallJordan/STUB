@@ -2,14 +2,17 @@ package com.stub.util
 
 import com.stub.model.AssignModel
 import com.stub.model.Assignment
+import com.stub.view.crud.AssignmentList
+import tornadofx.Controller
 
-class AssignmentDao {
+class AssignmentDao : Controller() {
 
     private val conn = Database().conn
+    val assignmentList: AssignmentList by inject()
 
 
     fun addAssignment(assignment: Assignment){
-        val ps = conn.prepareStatement("INSERT INTO STUB(module,title,description,weight,subLink,subDate) VALUES (?,?,?,?,?,?)")
+        val ps = conn.prepareStatement("INSERT INTO stub(module,title,description,weight,subLink,subDate) VALUES (?,?,?,?,?,?)")
         ps.setString(1,assignment.module)
         ps.setString(2,assignment.title)
         ps.setString(3,assignment.description)
@@ -22,7 +25,7 @@ class AssignmentDao {
     }
 
     fun readAssignments() : List<Assignment> {
-        val rs = conn.createStatement().executeQuery("SELECT * FROM STUB WHERE module IS NOT NULL")
+        val rs = conn.createStatement().executeQuery("SELECT * FROM stub WHERE module IS NOT NULL")
         val assignmentList = ArrayList<Assignment>()
         while (rs.next()) {
             val mod = rs.getString("module")
@@ -37,16 +40,18 @@ class AssignmentDao {
         return assignmentList
     }
 
-    fun updateAssignment(title:String,assignment: Assignment){
-        val modParam = ""
-        val titleParam=""
-        val descParam = ""
-        val weight = 0
-        val subLink=""
-        val subDate = ""
-        var optionalParamIndex = 6
-//        if(assignment.)
-
+    fun updateAssignment(){
+        val ps = conn.prepareStatement("UPDATE stub SET module = ? , title = ? , description = ? , weight = ? , subLink = ? , subDate = ? WHERE title =? ")
+        ps.setString(1,assignmentList.module.value)
+        ps.setString(2,assignmentList.ttle.value)
+        ps.setString(3,assignmentList.desc.value)
+        ps.setInt(4, assignmentList.weight.value)
+        ps.setString(5,assignmentList.subLink.value)
+        ps.setString(6,assignmentList.subDate.value)
+        ps.setString(7, assignmentList.ttle.value )
+        val count = ps.executeUpdate()
+        ps.close()
+        return println("$count row updated")
     }
 
     fun deleteAssignment(title: String){
