@@ -1,9 +1,13 @@
 package com.stub.model
 
+import javafx.beans.property.SimpleIntegerProperty
 import javafx.beans.property.SimpleStringProperty
 import tornadofx.*
 
-class Student (name : String? = null, username: String?= null, password: String? = null){
+class Student (id : Int = 0,name : String? = null, username: String?= null, password: String? = null){
+
+    val idProperty = SimpleIntegerProperty(id)
+    var id by idProperty
 
     val nameProperty = SimpleStringProperty(this, "name", name)
     var name by nameProperty

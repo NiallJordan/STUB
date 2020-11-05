@@ -11,6 +11,7 @@ import tornadofx.UIComponent
 class MyApp: App(STUBWorkspace::class, Styles::class){
     val model : AssignModel by inject()
 
+    //Dock the assignment list page
     override fun onBeforeShow(view: UIComponent) {
         workspace.dock<AssignmentList>()
     }

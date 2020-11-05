@@ -4,16 +4,18 @@ import com.stub.controller.AssignmentController
 import com.stub.model.AssignModel
 import com.stub.model.Assignment
 import com.stub.util.AssignmentDao
-import javafx.collections.FXCollections
+import com.sun.jndi.toolkit.url.Uri
 import javafx.geometry.Pos
-import javafx.scene.chart.PieChart
 import tornadofx.*
 import java.awt.Desktop
 import java.net.URI
+import javax.naming.Context
 
 class AssignmentList : View("STUB - Student Board") {
     val model: AssignModel by inject()
     val assignmentController: AssignmentController by inject()
+
+    //Injecting binding model properties to the View properties
     val module = model.module
     val ttle = model.title
     val desc = model.description
@@ -30,48 +32,34 @@ class AssignmentList : View("STUB - Student Board") {
                     field("Module Name") {
                         textfield(module) {
                             this.required()
-//                    validator {
-//                        when {
-//                            it?.isEmpty()!! -> error("Module cannot be empty")
-//                            it!!.length >65 -> error("Too Long")
-//                            else -> null
-//                        }
-//                    }
+                            validator{
+                                if (it.isNullOrBlank()) error("Module cannot be empty") else  null
+                            }
                         }
                     }
                     field("Assignment Title") {
                         textfield(ttle) {
                             this.required()
-//                    validator {
-//                        when {
-//                            it?.isEmpty()!! -> error("Title cannot be empty")
-//                            it!!.length >65 -> error("Too Long")
-//                            else -> null
-//                        }
-//                    }
+                            validator{
+                                if (it.isNullOrBlank()) error("Title cannot be empty") else  null
+                            }
                         }
                     }
                     field("Description") {
                         textarea(desc) {
                             this.required()
-//                    validator {
-//                        when {
-//                            it?.isEmpty()!! -> error("Description cannot be empty")
-//                            it!!.length >500 -> error("Description can not be longer than 500 characters")
-//                            else -> null
-//                        }
-//                    }
+                            validator{
+                                if (it.isNullOrBlank()) error("Description cannot be empty") else  null
+                            }
+
                         }
                     }
 
                     field("Percentage Weighting (%)") {
                         textfield(weight) {
                             this.required()
-                            validator {
-                                when (it) {
-                                    null -> error("Weighting cannot be empty")
-                                    else -> null
-                                }
+                            validator{
+                                if (it.isNullOrBlank()) error("Weight cannot be empty") else  null
                             }
                         }
                     }
@@ -79,30 +67,24 @@ class AssignmentList : View("STUB - Student Board") {
                     field("Submission Link") {
                         textfield(subLink) {
                             this.required()
-//                    validator {
-//                        when {
-//                            it?.isEmpty()!! -> error("Submission Link cannot be empty")
-//                            it!!.length >65 -> error("Too Long")
-//                            else -> null
-//                        }
-//                    }
+                            validator{
+                                if (it.isNullOrBlank()) error("Submission Link cannot be empty") else  null
+                            }
                         }
                     }
                     field("Date Due") {
                         textfield(subDate) {
                             this.required()
-//                    validator {
-//                        when {
-//                            it?.isEmpty()!! -> error("Submission Date cannot be empty")
-//                            it!!.length >65 -> error("Too Long")
-//                            else -> null
-//                        }
-//                    }
+                            validator{
+                                if (it.isNullOrBlank()) error("Submission Date cannot be empty") else  null
+                            }
                         }
                     }
                 }
             }
         }
+
+
         right = vbox {
             piechart {
                 data = assignmentController.pieData
@@ -110,6 +92,16 @@ class AssignmentList : View("STUB - Student Board") {
         }
 
         bottom = vbox {
+            hbox {
+                alignment= Pos.CENTER
+                label("Search ")
+                textfield("Enter Title"){
+                    alignment= Pos.CENTER_RIGHT
+                    action{
+//                        dao.findAssignment()
+                    }
+                }
+            }
             tableview<Assignment> {
                 items = assignmentController.assignments
                 column("Module", Assignment::moduleProperty)
@@ -121,45 +113,63 @@ class AssignmentList : View("STUB - Student Board") {
                 bindSelected(model)
                 smartResize()
 
-//                onDoubleClick {
-//                    //Desktop.getDesktop().browse(URI());
-////                    openLink(subLin)
-//                }
+                onDoubleClick {
+                    val uri = URI(model.subLink.value)
+                    openLink(uri)
+                }
             }
         }
     }
 
-//    private fun openLink(uri: URI){
-//        val desktop = if (Desktop.isDesktopSupported()) Desktop.getDesktop()else null
-//        if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)){
-//            desktop.browse(uri)
-//        }
-//    }
+    /**
+     * Open Link function
+     */
+    private fun openLink(uri: URI){
+        val desktop = if (Desktop.isDesktopSupported()) Desktop.getDesktop()else null
+        if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)){
+            desktop.browse(uri)
+        }
+    }
 
+
+    /**
+     * Overriding onCreate function/button, creating a new assignment object and
+     * passing that as a parameter for the assignment Controller create method.
+     */
     override fun onCreate() {
         val assignment = Assignment(model.module.value,model.title.value,model.description.value,model.weight.value,model.subLink.value,model.subDate.value)
         assignmentController.createNewAssignment(assignment)
         //workspace.undock<AssignmentCreator>
     }
 
+    /**
+     * Overriding save function, calling the updateAssignment function from controller
+     * and flushing all new changes to the table.
+     */
     override fun onSave() {
         // Flush changes from the text fields into the model
-        model.commit()
+        model.commit{
+            //Persistence to go here
+            assignmentController.updateAssignemnt()
+        }
         //val assignment = Assignment(model.module.value,model.title.value,model.description.value,model.weight.value,model.subLink.value,model.subDate.value)
 
-        //Persistence to go here
-        dao.updateAssignment()
-        // assignmentController.updatePie(model)
-        //assignmentController.updateAssignment()
     }
 
+    /**
+     * Overriding onDelete function. Creating a new assignment object using the model (fields)
+     * then calling the controller funciton delete to delete from table, db and pie
+     * chart.
+     */
     override fun onDelete() {
         val assignment = Assignment(model.module.value,model.title.value,model.description.value,model.weight.value,model.subLink.value,model.subDate.value)
         assignmentController.deleteAssignment(assignment)
     }
 
-//    override fun onRefresh() {
-//        root.onRefresh()
-//    }
+    //Rollback any changes to the model
+    override fun onRefresh() {
+        model.rollback()
+    }
 }
+
 
