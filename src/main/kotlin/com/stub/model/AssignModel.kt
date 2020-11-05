@@ -16,19 +16,29 @@ class AssignModel: ItemViewModel<Assignment>() {
     val subDate = bind(Assignment::subDateProperty)
 
 
-//    //On commit if there are changes, the changes will print tp the console
-//    override fun onCommit(commits: List<Commit>) {
-//        // The println will only be called if findChanged is not null
-//        commits.findChanged(module)?.let { println("Module changed from ${it.second} to ${it.first}")}
-//        commits.findChanged(title)?.let { println("Title changed from ${it.second} to ${it.first}")}
-//        commits.findChanged(description)?.let { println("Description changed from ${it.second} to ${it.first}")}
-//        commits.findChanged(weight)?.let { println("Weight changed from ${it.second} to ${it.first}")}
-//        commits.findChanged(subLink)?.let { println("SubLink changed from ${it.second} to ${it.first}")}
-//        commits.findChanged(subDate)?.let { println("SubDate changed from ${it.second} to ${it.first}")}
-//    }
-//
-//    private fun <T> List<Commit>.findChanged(ref: Property<T>): Pair<T, T>? {
-//        val commit = find { it.property == ref && it.changed}
-//        return commit?.let { (it.newValue as T) to (it.oldValue as T) }
-//    }
+    /**
+     * On commit if there are changes, the changes will print tp the console.
+     * If a value has changed it prints a line to the console allowing the user to see the old value,
+     * and the new value it has changed to.
+     */
+    override fun onCommit(commits: List<Commit>) {
+        // The println will only be called if findChanged is not null
+        commits.findChanged(module)?.let { println("Module changed from ${it.second} to ${it.first}")}
+        commits.findChanged(title)?.let { println("Title changed from ${it.second} to ${it.first}")}
+        commits.findChanged(description)?.let { println("Description changed from ${it.second} to ${it.first}")}
+        commits.findChanged(weight)?.let { println("Weight changed from ${it.second} to ${it.first}")}
+        commits.findChanged(subLink)?.let { println("SubLink changed from ${it.second} to ${it.first}")}
+        commits.findChanged(subDate)?.let { println("SubDate changed from ${it.second} to ${it.first}")}
+    }
+
+    /**
+     * Checks the list of Commit and determines if a property passed as parameter has changed.
+     * Sets the new value as the first property(new value) and the old value as the second property.
+     * This is used in the overriding method.
+     */
+
+    private fun <T> List<Commit>.findChanged(ref: Property<T>): Pair<T, T>? {
+        val commit = find { it.property == ref && it.changed}
+        return commit?.let { (it.newValue as T) to (it.oldValue as T) }
+    }
 }

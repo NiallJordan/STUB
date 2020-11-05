@@ -52,7 +52,7 @@ class AssignmentController: Controller() {
         updatePie(model)
     }
 
-    /**Calls the readAssignments funciton from the database access object and assigns
+    /**Calls the readAssignments function from the database access object and assigns
      * the values to a list.
     */
     fun getAllAssignments(): List<Assignment> = AssignmentDao().readAssignments()

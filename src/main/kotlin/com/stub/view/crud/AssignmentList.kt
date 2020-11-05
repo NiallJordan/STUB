@@ -152,8 +152,6 @@ class AssignmentList : View("STUB - Student Board") {
             //Persistence to go here
             assignmentController.updateAssignemnt()
         }
-        //val assignment = Assignment(model.module.value,model.title.value,model.description.value,model.weight.value,model.subLink.value,model.subDate.value)
-
     }
 
     /**

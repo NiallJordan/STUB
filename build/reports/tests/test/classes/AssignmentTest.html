@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">0.117s</div>
+<div class="counter">0.129s</div>
 <p>duration</p>
 </div>
 </td>
@@ -76,40 +76,15 @@
 <div id="tab0" class="tab">
 <h2>Failed tests</h2>
 <div class="test">
-<a name="testUpdate"></a>
-<h3 class="failures">testUpdate</h3>
+<a name="testAddWithEmptyModule"></a>
+<h3 class="failures">testAddWithEmptyModule</h3>
 <span class="code">
-<pre>java.lang.ExceptionInInitializerError
-	at tornadofx.AbstractField.&lt;init&gt;(Forms.kt:253)
-	at tornadofx.Field.&lt;init&gt;(Forms.kt:229)
-	at tornadofx.FormsKt.field(Forms.kt:54)
-	at tornadofx.FormsKt.field$default(Forms.kt:53)
-	at com.stub.view.crud.AssignmentList$root$1$1$1$1.invoke(AssignmentList.kt:26)
-	at com.stub.view.crud.AssignmentList$root$1$1$1$1.invoke(AssignmentList.kt:10)
-	at tornadofx.FormsKt.fieldset(Forms.kt:346)
-	at tornadofx.FormsKt.fieldset$default(Forms.kt:25)
-	at com.stub.view.crud.AssignmentList$root$1$1$1.invoke(AssignmentList.kt:25)
-	at com.stub.view.crud.AssignmentList$root$1$1$1.invoke(AssignmentList.kt:10)
-	at tornadofx.FormsKt.form(Forms.kt:342)
-	at com.stub.view.crud.AssignmentList$root$1$1.invoke(AssignmentList.kt:24)
-	at com.stub.view.crud.AssignmentList$root$1$1.invoke(AssignmentList.kt:10)
-	at tornadofx.LayoutsKt.vbox(Layouts.kt:433)
-	at tornadofx.LayoutsKt.vbox$default(Layouts.kt:144)
-	at com.stub.view.crud.AssignmentList$root$1.invoke(AssignmentList.kt:23)
-	at com.stub.view.crud.AssignmentList$root$1.invoke(AssignmentList.kt:10)
-	at tornadofx.LayoutsKt.borderpane(Layouts.kt:465)
-	at com.stub.view.crud.AssignmentList.&lt;init&gt;(AssignmentList.kt:22)
-	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
-	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
-	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
-	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
-	at java.lang.Class.newInstance(Class.java:442)
-	at tornadofx.FXKt.find(FX.kt:434)
-	at com.stub.util.AssignmentDao$$special$$inlined$inject$1.getValue(Component.kt:1341)
-	at com.stub.util.AssignmentDao$$special$$inlined$inject$1.getValue(Component.kt:190)
-	at com.stub.util.AssignmentDao.getAssignmentList(AssignmentDao.kt)
-	at com.stub.util.AssignmentDao.updateAssignment(AssignmentDao.kt:65)
-	at AssignmentTest.testUpdate(AssignmentTest.kt:42)
+<pre>java.lang.AssertionError: Expected an exception of class java.lang.Exception to be thrown, but was completed successfully.
+	at org.junit.Assert.fail(Assert.java:88)
+	at kotlin.test.junit.JUnitAsserter.fail(JUnitSupport.kt:56)
+	at kotlin.test.AssertionsKt__AssertionsImplKt.checkResultIsFailure(AssertionsImpl.kt:20)
+	at kotlin.test.AssertionsKt.checkResultIsFailure(Unknown Source)
+	at AssignmentTest.testAddWithEmptyModule(AssignmentTest.kt:35)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -158,13 +133,6 @@
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
 	at org.gradle.internal.concurrent.ThreadFactoryImpl$ManagedThreadRunnable.run(ThreadFactoryImpl.java:56)
 	at java.lang.Thread.run(Thread.java:748)
-Caused by: java.lang.IllegalStateException: Toolkit not initialized
-	at com.sun.javafx.application.PlatformImpl.runLater(PlatformImpl.java:273)
-	at com.sun.javafx.application.PlatformImpl.runLater(PlatformImpl.java:268)
-	at com.sun.javafx.application.PlatformImpl.setPlatformUserAgentStylesheet(PlatformImpl.java:550)
-	at com.sun.javafx.application.PlatformImpl.setDefaultPlatformUserAgentStylesheet(PlatformImpl.java:512)
-	at javafx.scene.control.Control.&lt;clinit&gt;(Control.java:87)
-	... 78 more
 </pre>
 </span>
 </div>
@@ -180,8 +148,8 @@ Caused by: java.lang.IllegalStateException: Toolkit not initialized
 </tr>
 </thead>
 <tr>
-<td class="failures">testUpdate</td>
-<td class="failures">0.117s</td>
+<td class="failures">testAddWithEmptyModule</td>
+<td class="failures">0.129s</td>
 <td class="failures">failed</td>
 </tr>
 </table>
@@ -196,7 +164,67 @@ Caused by: java.lang.IllegalStateException: Toolkit not initialized
 <div id="tab3" class="tab">
 <h2>Standard error</h2>
 <span class="code">
-<pre>5 [Test worker] INFO com.stub.controller.AssignmentController - Launching STUB
+<pre>17 [Test worker] INFO com.stub.controller.AssignmentController - Launching STUB
+java.sql.SQLIntegrityConstraintViolationException: Column 'module' cannot be null
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:117)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:953)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeUpdateInternal(ClientPreparedStatement.java:1092)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeUpdateInternal(ClientPreparedStatement.java:1040)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeLargeUpdate(ClientPreparedStatement.java:1347)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeUpdate(ClientPreparedStatement.java:1025)
+	at com.stub.util.AssignmentDao.addAssignment(AssignmentDao.kt:29)
+	at com.stub.controller.AssignmentController.createNewAssignment(AssignmentController.kt:39)
+	at AssignmentTest.testAddWithEmptyModule(AssignmentTest.kt:36)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.runTestClass(JUnitTestClassExecutor.java:110)
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:58)
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:38)
+	at org.gradle.api.internal.tasks.testing.junit.AbstractJUnitTestClassProcessor.processTestClass(AbstractJUnitTestClassProcessor.java:62)
+	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.processTestClass(SuiteTestClassProcessor.java:51)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+	at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33)
+	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:94)
+	at com.sun.proxy.$Proxy2.processTestClass(Unknown Source)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.processTestClass(TestWorker.java:118)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+	at org.gradle.internal.remote.internal.hub.MessageHubBackedObjectConnection$DispatchWrapper.dispatch(MessageHubBackedObjectConnection.java:182)
+	at org.gradle.internal.remote.internal.hub.MessageHubBackedObjectConnection$DispatchWrapper.dispatch(MessageHubBackedObjectConnection.java:164)
+	at org.gradle.internal.remote.internal.hub.MessageHub$Handler.run(MessageHub.java:412)
+	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
+	at org.gradle.internal.concurrent.ManagedExecutorImpl$1.run(ManagedExecutorImpl.java:48)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.gradle.internal.concurrent.ThreadFactoryImpl$ManagedThreadRunnable.run(ThreadFactoryImpl.java:56)
+	at java.lang.Thread.run(Thread.java:748)
 </pre>
 </span>
 </div>
@@ -208,7 +236,7 @@ Caused by: java.lang.IllegalStateException: Toolkit not initialized
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="http://www.gradle.org">Gradle 6.3</a> at 03-Nov-2020 21:32:58</p>
+<a href="http://www.gradle.org">Gradle 6.3</a> at 05-Nov-2020 15:57:19</p>
 </div>
 </div>
 </body>
